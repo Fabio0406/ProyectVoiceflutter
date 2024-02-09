@@ -36,7 +36,8 @@ dependencies:
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^1.0.2
   speech_to_text: ^6.6.0
-  text_to_speech: ^0.2.3
+  dialog_flowtter: ^0.3.1
+  flutter_tts: ^3.2.2
 
 
 dev_dependencies:
@@ -60,6 +61,11 @@ flutter:
   # included with your application, so that you can use the icons in
   # the material Icons class.
   uses-material-design: true
+
+  assets:
+    # Esta línea debe apuntar a la ruta de tu documento 
+    # y tener el mismo nombre que el archivo.
+    - assets/dialog_flow_auth.json
 
   # To add assets to your application, add an assets section, like this:
   # assets:

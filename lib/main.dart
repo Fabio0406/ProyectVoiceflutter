@@ -1,6 +1,11 @@
+// ignore_for_file: deprecated_member_use
+
+import 'package:dialog_flowtter/dialog_flowtter.dart';
 import 'package:flutter/material.dart';
 import 'package:speech_to_text/speech_to_text.dart' as stt;
-import 'package:text_to_speech/text_to_speech.dart';
+import 'package:flutter_tts/flutter_tts.dart';
+
+import 'app_body.dart';
 
 void main() {
   runApp(const MyApp());
@@ -9,82 +14,172 @@ void main() {
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
-  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      home: VoiceHome(),
+      title: 'BURGER',
+      theme: ThemeData(
+        primarySwatch: Colors.blue,
+        visualDensity: VisualDensity.adaptivePlatformDensity,
+      ),
+      home: const MyHomePage(title: 'BURGER'),
     );
   }
 }
 
-class VoiceHome extends StatefulWidget {
+class MyHomePage extends StatefulWidget {
+  const MyHomePage({Key? key, this.title}) : super(key: key);
+
+  final String? title;
+
   @override
-  _VoiceHomeState createState() => _VoiceHomeState();
+  // ignore: library_private_types_in_public_api
+  _MyHomePageState createState() => _MyHomePageState();
 }
 
-class _VoiceHomeState extends State<VoiceHome> {
+class _MyHomePageState extends State<MyHomePage> {
+  late DialogFlowtter dialogFlowtter;
+
   late stt.SpeechToText _speech;
-  bool _isListening = false;
   String _text = '';
+  bool _isListening = false;
+
+  List<Map<String, dynamic>> mensajes = [];
 
   @override
   void initState() {
     super.initState();
     _speech = stt.SpeechToText();
+    DialogFlowtter.fromFile().then((instance) => dialogFlowtter = instance);
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Tarea IHC'),
-        backgroundColor: Color.fromRGBO(0, 50, 100, 0.747),
-      ),
-      floatingActionButtonLocation: FloatingActionButtonLocation.miniCenterFloat,
-      floatingActionButton: FloatingActionButton(
-        child: Icon(_isListening ? Icons.mic : Icons.mic_none),
-        onPressed: _listen,
-        backgroundColor: Color.fromARGB(255, 0, 0, 0),
-      ),
-      body: SingleChildScrollView(
-        reverse: true,
-        child: Container(
-          padding: const EdgeInsets.fromLTRB(30.0, 30.0, 30.0, 150.0),
-          color: Color.fromRGBO(1, 1, 1, 0.13),
-          child: Text(_text),
+        title: const Text(
+          'Burger',
+          style: TextStyle(color: Colors.white),
         ),
+        backgroundColor: Color.fromARGB(96, 233, 204, 77),
+        leading: IconButton(
+          icon: const Icon(
+            Icons.fastfood,
+            color: Colors.white,
+          ),
+          onPressed: () {},
+        ),
+      ),
+      body: Column(
+        children: [
+          Expanded(child: AppBody(mensajes: mensajes)),
+          Container(
+            padding: const EdgeInsets.symmetric(
+              horizontal: 10,
+              vertical: 5,
+            ),
+            color: const Color.fromARGB(157, 129, 5, 5),
+            child: Row(
+              children: [
+                Expanded(
+                  child: Text(
+                    _text,
+                    style: const TextStyle(color: Colors.white),
+                  ),
+                ),
+                IconButton(
+                  onPressed: () {
+                    _listen();
+                  },
+                  icon: Icon(
+                    _isListening ? Icons.mic : Icons.mic_none,
+                    color: const Color.fromRGBO(255, 255, 255, 1),
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ],
       ),
     );
   }
 
-  void _listen() async {
-    TextToSpeech tts = TextToSpeech();  
-    tts.setLanguage('es-MX');
-    if (!_isListening) {
-      bool available = await _speech.initialize(
-        onStatus: (val) => print('onStatus: $val'),
-        onError: (val) => print('onError: $val'),
+  void enviarmensajes(String text) async {
+    if (text.isEmpty) return;
+    setState(() {
+      addmensajes(
+        Message(text: DialogText(text: [text])),
+        true,
       );
-      if (available) {
-        setState(() => _isListening = true);
-        _speech.listen(
-          onResult: (val) => setState(() {
-            _text = val.recognizedWords;
-            
-          }), localeId:'es-MX' 
-        );
-      }
-    } else {
-      setState(() => _isListening = false);
-      _speech.stop();
-      tts.speak(_text);
+    });
+
+    DetectIntentResponse response = await dialogFlowtter.detectIntent(
+      queryInput: QueryInput(text: TextInput(text: text)),
+    );
+    FlutterTts flutterTts = FlutterTts();
+    flutterTts.setLanguage('es-MX');
+
+  // Establece el manejador de finalización
+  flutterTts.setCompletionHandler(() {
+    _listen(); // Activa el micrófono después de que el bot termine de hablar
+  });
+
+  flutterTts.speak(response.text as String);
+    if (response.message == null) return;
+    setState(() {
+      addmensajes(response.message!);
+    });
+  }
+
+  void addmensajes(Message message, [bool isUserMessage = false]) {
+    mensajes.add({
+      'message': message,
+      'isUserMessage': isUserMessage,
+    });
+  }
+
+ void _listen() async {
+  if (!_isListening) {
+    bool available = await _speech.initialize(
+      onStatus: (val) {
+        print('Estado del reconocimiento de voz: $val'); // Imprime el estado actual
+        if (val == 'done') {
+          setState(() => {_isListening = false,
+          _speech.stop(),
+          enviarmensajes(_text),          
+          _text = ''            
+          });
+        }
+      },
+      // ignore: avoid_print
+      onError: (val) => print('onError: $val'),
+    );
+    if (available) {
+      setState(() => _isListening = true);
+      print('Escuchando...'); // Imprime cuando comienza a escuchar
+      _speech.listen(
+        onResult: (val) => setState(() {
+          _text = val.recognizedWords;
+        }),
+        localeId: 'es-MX',
+        // comentar esta seccion si se va correr en celular
+        // listenFor: const Duration(seconds: 60),
+        //   pauseFor: const Duration(seconds: 10),
+        //   partialResults: true,
+        //   onDevice: true,
+        //   listenMode: stt.ListenMode.confirmation,
+        // hasta aca
+      );
     }
+  } else {
+    setState(() => _isListening = false);
+    print('Dejó de escuchar'); // Imprime cuando deja de escuchar
+    _speech.stop();
   }
 }
-
-
-
-
-
-
+  @override
+  void dispose() {
+    dialogFlowtter.dispose();
+    super.dispose();
+  }
+}

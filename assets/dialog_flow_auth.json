@@ -1,0 +1,13 @@
+{
+  "type": "service_account",
+  "project_id": "proyectoihc-rify",
+  "private_key_id": "349a9b41bb803c15bb726d4fde2ad6f93a13d867",
+  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvQIBADANBgkqhkiG9w0BAQEFAASCBKcwggSjAgEAAoIBAQDNNMyl6zkWKj+W\nPfGo3OuSHpHrQN+EUxKyUe/H1wT5OdRCwVKukMTEPOyGcW3GnrtFsRnbrJhVjoz3\nw04nAPNFwmWE0xaKH6Ak8BDUVdDUCWzrZAwIBeoRoVzueJ05ak57KRBuTx7WOw7L\nuSKQgIloD9J2ItZSOFiUop6wIqal2c5NyvkS5vOovMW8UHjianBDtw/GJUmg93ro\nPKehhq3N+TSsUctWgJRZa6VV9NO9JibJJhne2MQSMPuF12KNLktOCsZiyPWaA2ef\ncHsZ12nleAv2eK6LVPo03dwITa+0JwZ35ujRNRfxYfJqtD8cWGGHKpMkKdwznhT3\nS9PdsfZdAgMBAAECggEAEcVWSbIerfw3qH+xy2FiZzONiHWERdXZ4yZ0YPaOgDTR\nXHyYd/SijaoHA7eT/aTma+kj56HBSXuAWr6HqJoM90gX+ZI8O/b0K+68Tl8mKA6u\n542w+wrkE+XJAf/hAcViiYjrWtowPfY8WEkupJv1ClWAcOmgbNtjVG/m1TMTAn67\n6a7zGRuyJ3bE6ZFqgBKeyLxlAyVOme70puvHjqsAR5T8GxfXfl9O3FuSlDZRmHds\ngf2MPpgAFh5A63VTe1UID2KmGgMieN9YXOzDM0msrbSSOAJvbLo/D+mxuT+tGJUj\nFnCkv1gwsppsUcia9ZotiU7mYj7jCCk9nYtLhvKyYQKBgQD4xA+JajbiDYBzTVjY\n5Jk+5zeS7xGPA89NToGAYwdeMZ/3k4XgAvNHAt/edz1T36mCvazIzG7o2l7vOj4b\n/JAcLxbtxlgtZY7SsFsoIpqWop+EzACIjjZqtREaUkQEG3byq5A8j4WP/N+8V/oi\n9JXL5iH4iB4ICpklHnVlVLOELQKBgQDTLHV2vO1bMJuul7p7AUMo9JxG2KQxXhiR\nSmo73CnKxPRq/SYa51nqaayMoAYbCkD9M3U/HQCdkzw/ryjUJWCeeB4zj3Y9l+Zx\nD/XERSoEejPNwN5t+IiMBNQxa0dh7Sk/UnlOUtQtjJQfMevZ4o+hfhoNJmtw+DmE\nqXUoOemo8QKBgQC4NO5QUe9cCqVwO/krenMjyjEzw4WcAjUySIzKlgnxrQuIV5wN\nmgGtNqqxYFhwUDGEV5GniwIhuPoNaXJuZOINjK0M2w+WZhqRVvfZS25vVvKKckl+\n1Nfkwjls5TfqVrAI2BPRVHGRgq3mGLtnwPdfagUDtT+PstFeVCSYKVVY7QKBgGm+\nPH+dsTlViM+PeLi5dBjhDBRJzUZPOPwgCDw7Tc4Ue9PLObaFHLhN/DJau1P0+YAQ\nsWhOLI27OZMmMcqxgMU5nt3wu6OyGZmKBWYnwBeH3cLtDjSBHFcI3/xzHMaDjIEB\n2m6G+Wppl45bYB+13HhgfckR8QEbuymb9WeUQFXxAoGAX6M0x+ghun1EN997oJPI\njxo1IExVlAvtPvTv9rFSVDAAUq44YDjyZfm+9uOsmC2OQzT49BCCqFU06uj7d1Ir\n4wHW6LVc7tstndORmCxoMxRsUx0QVeixlxPcKJPQrCP5IEoXRuLrcU54hIpJZ7m5\nxE+9qi1K9ndN4fC7xTxl+6o=\n-----END PRIVATE KEY-----\n",
+  "client_email": "apidialogcxflutter@proyectoihc-rify.iam.gserviceaccount.com",
+  "client_id": "104075639543424528808",
+  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+  "token_uri": "https://oauth2.googleapis.com/token",
+  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/apidialogcxflutter%40proyectoihc-rify.iam.gserviceaccount.com",
+  "universe_domain": "googleapis.com"
+}
